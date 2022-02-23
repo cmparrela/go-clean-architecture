@@ -1,8 +1,8 @@
 package user
 
 import (
-	"app/entities"
-	"app/infrastructure/repositories/persistence"
+	"github.com/cmparrela/go-clean-architecture/entities"
+	"github.com/cmparrela/go-clean-architecture/infrastructure/repositories/persistence"
 )
 
 type UserService struct {

@@ -6,8 +6,6 @@ import (
 	"github.com/joho/godotenv"
 )
 
-var Env map[string]string
-
 func GetEnv(key string) string {
 	return os.Getenv(key)
 }

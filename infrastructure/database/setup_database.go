@@ -1,8 +1,8 @@
 package database
 
 import (
-	"app/config"
-	"app/entities"
+	"github.com/cmparrela/go-clean-architecture/config"
+	"github.com/cmparrela/go-clean-architecture/entities"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"

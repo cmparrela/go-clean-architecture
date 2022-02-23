@@ -1,9 +1,10 @@
 package handler
 
 import (
-	"app/entities"
-	"app/usecases/user"
 	"strconv"
+
+	"github.com/cmparrela/go-clean-architecture/entities"
+	"github.com/cmparrela/go-clean-architecture/usecases/user"
 
 	"github.com/gofiber/fiber/v2"
 )

@@ -1,10 +1,11 @@
 package main
 
 import (
-	"app/api/router"
-	"app/infrastructure/adapters/env"
-	"app/infrastructure/database"
 	"log"
+
+	"github.com/cmparrela/go-clean-architecture/api/router"
+	"github.com/cmparrela/go-clean-architecture/infrastructure/adapters/env"
+	"github.com/cmparrela/go-clean-architecture/infrastructure/database"
 
 	"github.com/gofiber/fiber/v2"
 )

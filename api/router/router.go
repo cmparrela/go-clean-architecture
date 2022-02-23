@@ -1,9 +1,9 @@
 package router
 
 import (
-	"app/api/handler"
-	"app/infrastructure/repositories/persistence"
-	"app/usecases/user"
+	"github.com/cmparrela/go-clean-architecture/api/handler"
+	"github.com/cmparrela/go-clean-architecture/infrastructure/repositories/persistence"
+	"github.com/cmparrela/go-clean-architecture/usecases/user"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/monitor"

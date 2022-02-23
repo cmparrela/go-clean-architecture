@@ -1,7 +1,7 @@
 package persistence
 
 import (
-	"app/entities"
+	"github.com/cmparrela/go-clean-architecture/entities"
 
 	"gorm.io/gorm"
 )

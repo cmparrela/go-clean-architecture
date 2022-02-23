@@ -1,8 +1,9 @@
 package config
 
 import (
-	"app/infrastructure/adapters/env"
 	"fmt"
+
+	"github.com/cmparrela/go-clean-architecture/infrastructure/adapters/env"
 )
 
 type DatabaseConfig struct {
