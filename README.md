@@ -6,7 +6,7 @@
 - Fiber (https://docs.gofiber.io/)
 - GORM (https://gorm.io/)
 
-### TODO
+### TO DO
 - Trabalhar com inversao de dependencia
 - Analisar a clean architecture
 - Colocar swagger
@@ -15,6 +15,7 @@
 - Fazer uma parte via cmd com a lib do cobra
 - Adicionar mais dados na tabela de usuários, hoje so tem o nome do usuário
 - Criar a entitidade Book e vincular com o User
+- Adicionar teste unitario
 
 --------
 # API Documentation
