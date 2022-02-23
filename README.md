@@ -12,6 +12,9 @@
 - Colocar swagger
 - Melhorar docker
 - Melhorar a doc para iniciar o projeto
+- Fazer uma parte via cmd com a lib do cobra
+- Adicionar mais dados na tabela de usuários, hoje so tem o nome do usuário
+- Criar a entitidade Book e vincular com o User
 
 --------
 # API Documentation
