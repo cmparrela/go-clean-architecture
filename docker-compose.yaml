@@ -1,0 +1,28 @@
+version: '3.4'
+
+services:
+  app.devbooks:
+    container_name: app.devbooks
+    build: .
+    volumes:
+      - .:/app
+    ports:
+      - "5000:5000"
+
+  mysql.devbooks:
+    container_name: mysql.devbooks
+    image: mysql:5.7
+    volumes:
+      - devbooks.mysql:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_DATABASE=devbooks
+      - MYSQL_ROOT_PASSWORD=root
+
+volumes:
+  devbooks.mysql:
+
+networks:
+  bubble:
+    external: true
