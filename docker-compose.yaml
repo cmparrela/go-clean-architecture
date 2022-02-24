@@ -7,7 +7,7 @@ services:
     volumes:
       - .:/app
     ports:
-      - "5000:5000"
+      - "5001:5001"
 
   mysql.devbooks:
     container_name: mysql.devbooks

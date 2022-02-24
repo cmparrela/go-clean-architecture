@@ -1,98 +1,79 @@
-# API in Go using clean architecture
+# API in Go using Clean Architecture
+API RESTFul to exemplify the use of clean architecture using go language
 
-### Stack
+![clean-archicture](https://miro.medium.com/max/1400/1*O4pMWCi5kZi20SNOR6V33Q.png)
+
+## 📌 Stack
 - Mysql (https://www.mysql.com/)
 - Go (https://go.dev/)
 - Fiber (https://docs.gofiber.io/)
 - GORM (https://gorm.io/)
 
-### TO DO
+## 🚀 Install
+Run docker
+```sh
+docker-compose up -d
+```
+
+To see the log and follow it
+
+```sh
+docker-compose logs -f app.devbooks  
+```
+
+
+## 📝 To Do 
 - Trabalhar com inversao de dependencia
 - Analisar a clean architecture
 - Colocar swagger
-- Melhorar docker
-- Melhorar a doc para iniciar o projeto
 - Fazer uma parte via cmd com a lib do cobra
 - Adicionar mais dados na tabela de usuários, hoje so tem o nome do usuário
 - Criar a entitidade Book e vincular com o User
 - Adicionar teste unitario
 
---------
+
 # API Documentation
-
-## Indices
-* [User](#user)
-  * [Create](#1-create)
-  * [Delete](#2-delete)
-  * [List](#3-list)
-  * [Find](#4-find)
-  * [Update](#5-update)
-
 
 ## User
 
 ### 1. Create
-
-***Endpoint:***
-
-```bash
-Method: POST
-Type: RAW
-URL: http://localhost:5001/users
-```
-
-***Body:***
-
-```js        
-{
-  "name": "User1"
-}
+```sh
+curl --location --request POST 'http://localhost:5001/users/' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "name": "teste"
+}'
 ```
 
 ### 2. Delete
-
-***Endpoint:***
-```bash
-Method: DELETE
-Type: 
-URL: http://localhost:5001/users/2
+```sh
+curl --location --request PUT 'http://localhost:5001/users/1' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "name": "teste2"
+}'
 ```
 
-### 3. List
-
-***Endpoint:***
-```bash
-Method: GET
-Type: 
-URL: http://localhost:5001/users
+### 4. List
+```sh
+curl --location --request GET 'http://localhost:5001/users' \
+--header 'Content-Type: application/json'
 ```
 
 ### 4. Find
-
-***Endpoint:***
-```bash
-Method: GET
-Type: 
-URL: http://localhost:5001/users/2
+```sh
+curl --location --request GET 'http://localhost:5001/users/2' \
+--header 'Content-Type: application/json'
 ```
 
 ### 5. Update
-
-***Endpoint:***
-```bash
-Method: PUT
-Type: URLENCODED
-URL: http://localhost:5001/users/1
+```sh
+curl --location --request PUT 'http://localhost:5001/users/1' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "name": "teste2"
+}'
 ```
-
-***Body:***
-
-```js        
-{
-  "name": "NewUserName"
-}
-```
-
 
 ---
-[Back to top](#api-documentation)
+[Back to top of documentation](#api-documentation)
