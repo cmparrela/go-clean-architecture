@@ -1,4 +1,5 @@
 FROM golang:alpine
 WORKDIR /app
 COPY . .
-ENTRYPOINT [ "docker/php/entrypoint.sh" ]
+RUN chmod +x ./entrypoint.sh
+ENTRYPOINT [ "./entrypoint.sh" ]

@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"errors"
 	"strconv"
 
 	"github.com/cmparrela/go-clean-architecture/entities"
@@ -10,10 +11,10 @@ import (
 )
 
 type UserHandler struct {
-	Service user.UserService
+	Service user.UserServiceInterface
 }
 
-func NewUserHandler(app *fiber.App, userService user.UserService) *UserHandler {
+func NewUserHandler(app *fiber.App, userService user.UserServiceInterface) *UserHandler {
 	handler := &UserHandler{userService}
 	app.Get("/users", handler.List)
 	app.Get("/users/:id", handler.Find)
@@ -32,12 +33,12 @@ func (handler *UserHandler) List(context *fiber.Ctx) error {
 }
 
 func (handler *UserHandler) Find(context *fiber.Ctx) error {
-	id, err := strconv.ParseUint(context.Params("id"), 0, 8)
+	id, err := getIdParam(context)
 	if err != nil {
-		return context.Status(fiber.StatusInternalServerError).JSON(PayloadError{"Invalid ID number"})
+		return context.Status(fiber.StatusBadRequest).JSON(PayloadError{err.Error()})
 	}
 
-	user, err := handler.Service.Find(uint(id))
+	user, err := handler.Service.Find(id)
 	if err != nil {
 		return context.Status(fiber.StatusInternalServerError).JSON(PayloadError{err.Error()})
 	}
@@ -62,18 +63,18 @@ func (handler *UserHandler) Create(context *fiber.Ctx) error {
 }
 
 func (handler *UserHandler) Update(context *fiber.Ctx) error {
-	id, err := strconv.ParseUint(context.Params("id"), 0, 8)
+	id, err := getIdParam(context)
 	if err != nil {
-		return context.Status(fiber.StatusInternalServerError).JSON(PayloadError{"Invalid ID number"})
+		return context.Status(fiber.StatusBadRequest).JSON(PayloadError{err.Error()})
 	}
 
-	user, err := handler.Service.Find(uint(id))
+	user, err := handler.Service.Find(id)
 	if err != nil {
 		return context.Status(fiber.StatusInternalServerError).JSON(PayloadError{err.Error()})
 	}
 
 	if err := context.BodyParser(user); err != nil {
-		return err
+		return context.Status(fiber.StatusInternalServerError).JSON(PayloadError{err.Error()})
 	}
 
 	if err := user.Validate(); err != nil {
@@ -89,12 +90,12 @@ func (handler *UserHandler) Update(context *fiber.Ctx) error {
 }
 
 func (handler *UserHandler) Delete(context *fiber.Ctx) error {
-	id, err := strconv.ParseUint(context.Params("id"), 0, 8)
+	id, err := getIdParam(context)
 	if err != nil {
-		return context.Status(fiber.StatusInternalServerError).JSON(PayloadError{"Invalid ID number"})
+		return context.Status(fiber.StatusBadRequest).JSON(PayloadError{err.Error()})
 	}
 
-	user, err := handler.Service.Find(uint(id))
+	user, err := handler.Service.Find(id)
 	if err != nil {
 		return context.Status(fiber.StatusInternalServerError).JSON(PayloadError{err.Error()})
 	}
@@ -104,4 +105,12 @@ func (handler *UserHandler) Delete(context *fiber.Ctx) error {
 	}
 	return context.SendStatus(fiber.StatusNoContent)
 
+}
+
+func getIdParam(context *fiber.Ctx) (uint, error) {
+	id, err := strconv.ParseUint(context.Params("id"), 0, 8)
+	if err != nil {
+		return 0, errors.New("invalid id number")
+	}
+	return uint(id), nil
 }

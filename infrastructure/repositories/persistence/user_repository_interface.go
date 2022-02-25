@@ -1,8 +1,8 @@
-package user
+package persistence
 
 import "github.com/cmparrela/go-clean-architecture/entities"
 
-type UserServiceInterface interface {
+type UserRepositoryInterface interface {
 	List() ([]entities.User, error)
 	Find(id uint) (*entities.User, error)
 	Create(user *entities.User) (*entities.User, error)

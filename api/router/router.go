@@ -14,6 +14,6 @@ func SetupRoutes(app *fiber.App, database *gorm.DB) {
 	app.Get("/", monitor.New())
 
 	userRepository := persistence.NewUserRepository(database)
-	userService := user.NewUserService(*userRepository)
-	handler.NewUserHandler(app, *userService)
+	userService := user.NewUserService(userRepository)
+	handler.NewUserHandler(app, userService)
 }
