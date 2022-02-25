@@ -4,8 +4,8 @@ import (
 	"errors"
 	"strconv"
 
-	"github.com/cmparrela/go-clean-architecture/entities"
-	"github.com/cmparrela/go-clean-architecture/usecases/user"
+	"github.com/cmparrela/go-clean-architecture/domain/entity"
+	"github.com/cmparrela/go-clean-architecture/usecase/user"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -46,7 +46,7 @@ func (handler *UserHandler) Find(context *fiber.Ctx) error {
 }
 
 func (handler *UserHandler) Create(context *fiber.Ctx) error {
-	user := new(entities.User)
+	user := new(entity.User)
 	if err := context.BodyParser(user); err != nil {
 		return err
 	}

@@ -2,7 +2,7 @@ package database
 
 import (
 	"github.com/cmparrela/go-clean-architecture/config"
-	"github.com/cmparrela/go-clean-architecture/entities"
+	"github.com/cmparrela/go-clean-architecture/domain/entity"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -17,7 +17,7 @@ func SetupDatabase() *gorm.DB {
 		panic("failed to connect database")
 	}
 
-	database.AutoMigrate(&entities.User{})
+	database.AutoMigrate(&entity.User{})
 
 	return database
 }

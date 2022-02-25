@@ -3,8 +3,8 @@ package main
 import (
 	"log"
 
-	"github.com/cmparrela/go-clean-architecture/api/router"
 	"github.com/cmparrela/go-clean-architecture/infrastructure/adapters/env"
+	"github.com/cmparrela/go-clean-architecture/infrastructure/api/router"
 	"github.com/cmparrela/go-clean-architecture/infrastructure/database"
 
 	"github.com/gofiber/fiber/v2"
