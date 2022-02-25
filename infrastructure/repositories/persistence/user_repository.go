@@ -19,23 +19,21 @@ func (repository *UserRepository) List() ([]entity.User, error) {
 	return users, err
 }
 
-func (repository *UserRepository) Find(id uint) (*entity.User, error) {
-	user := &entity.User{}
+func (repository *UserRepository) Find(id uint) (entity.User, error) {
+	user := entity.User{}
 	err := repository.DB.First(&user, id).Error
 	return user, err
 }
 
-func (repository *UserRepository) Create(user *entity.User) (*entity.User, error) {
-	err := repository.DB.Create(user).Error
-	return user, err
+func (repository *UserRepository) Create(user *entity.User) error {
+	return repository.DB.Create(user).Error
 }
 
-func (repository *UserRepository) Update(user *entity.User) (*entity.User, error) {
-	err := repository.DB.Save(user).Error
-	return user, err
+func (repository *UserRepository) Update(user *entity.User) error {
+
+	return repository.DB.Save(user).Error
 }
 
 func (repository *UserRepository) Delete(user *entity.User) error {
-	err := repository.DB.Delete(user).Error
-	return err
+	return repository.DB.Delete(user).Error
 }

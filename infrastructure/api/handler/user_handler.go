@@ -4,7 +4,6 @@ import (
 	"errors"
 	"strconv"
 
-	"github.com/cmparrela/go-clean-architecture/domain/entity"
 	"github.com/cmparrela/go-clean-architecture/usecase/user"
 
 	"github.com/gofiber/fiber/v2"
@@ -46,16 +45,12 @@ func (handler *UserHandler) Find(context *fiber.Ctx) error {
 }
 
 func (handler *UserHandler) Create(context *fiber.Ctx) error {
-	user := new(entity.User)
-	if err := context.BodyParser(user); err != nil {
+	userDto := new(user.UserInputDto)
+	if err := context.BodyParser(userDto); err != nil {
 		return err
 	}
 
-	if err := user.Validate(); err != nil {
-		return context.Status(fiber.StatusBadRequest).JSON(PayloadError{err.Error()})
-	}
-
-	user, err := handler.Service.Create(user)
+	user, err := handler.Service.Create(userDto)
 	if err != nil {
 		return context.Status(fiber.StatusInternalServerError).JSON(PayloadError{err.Error()})
 	}
@@ -63,25 +58,17 @@ func (handler *UserHandler) Create(context *fiber.Ctx) error {
 }
 
 func (handler *UserHandler) Update(context *fiber.Ctx) error {
+	userDto := new(user.UserInputDto)
+	if err := context.BodyParser(userDto); err != nil {
+		return err
+	}
+
 	id, err := getIdParam(context)
 	if err != nil {
 		return context.Status(fiber.StatusBadRequest).JSON(PayloadError{err.Error()})
 	}
 
-	user, err := handler.Service.Find(id)
-	if err != nil {
-		return context.Status(fiber.StatusInternalServerError).JSON(PayloadError{err.Error()})
-	}
-
-	if err := context.BodyParser(user); err != nil {
-		return context.Status(fiber.StatusInternalServerError).JSON(PayloadError{err.Error()})
-	}
-
-	if err := user.Validate(); err != nil {
-		return context.Status(fiber.StatusBadRequest).JSON(PayloadError{err.Error()})
-	}
-
-	result, err := handler.Service.Update(user)
+	result, err := handler.Service.Update(id, userDto)
 	if err != nil {
 		return context.Status(fiber.StatusInternalServerError).JSON(PayloadError{err.Error()})
 	}
@@ -95,12 +82,7 @@ func (handler *UserHandler) Delete(context *fiber.Ctx) error {
 		return context.Status(fiber.StatusBadRequest).JSON(PayloadError{err.Error()})
 	}
 
-	user, err := handler.Service.Find(id)
-	if err != nil {
-		return context.Status(fiber.StatusInternalServerError).JSON(PayloadError{err.Error()})
-	}
-
-	if err := handler.Service.Delete(user); err != nil {
+	if err := handler.Service.Delete(id); err != nil {
 		return context.Status(fiber.StatusInternalServerError).JSON(PayloadError{err.Error()})
 	}
 	return context.SendStatus(fiber.StatusNoContent)
