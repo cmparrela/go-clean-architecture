@@ -1,6 +1,17 @@
 # API in Go using Clean Architecture
 API RESTFul to exemplify the use of clean architecture using go language
 
+Fluxo 
+- handler recebe o dado e cria o dto
+- servico recebe o dto e cria entidade
+- repositorio recebe entidade e faz o que tem que fazer
+- repositorio busca os dados de algum lugar
+- devolve o dado bruto
+- servico converte para entidade
+- devolve pro controller uma lista de entidades
+
+Camadas
+
 ![clean-archicture](https://miro.medium.com/max/1400/1*O4pMWCi5kZi20SNOR6V33Q.png)
 
 ## 📌 Stack
@@ -23,13 +34,15 @@ docker-compose logs -f app.devbooks
 
 
 ## 📝 To Do 
-- Trabalhar com inversao de dependencia
-- Analisar a clean architecture
+- Analisar a clean architecture 
+  - As entidades estão sendo criadas no handler, seria melhor criar elas no use cases
+  - Presenter
 - Colocar swagger
 - Fazer uma parte via cmd com a lib do cobra
-- Adicionar mais dados na tabela de usuários, hoje so tem o nome do usuário
+- Criar repository armazenando em outro local sem ser o banco para exemplificar o repository pattern
 - Criar a entitidade Book e vincular com o User
 - Adicionar teste unitario
+
 
 
 # API Documentation
@@ -74,6 +87,3 @@ curl --location --request PUT 'http://localhost:5001/users/1' \
   "name": "teste2"
 }'
 ```
-
----
-[Back to top of documentation](#api-documentation)
