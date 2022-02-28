@@ -1,51 +1,52 @@
 # API in Go using Clean Architecture
 API RESTFul to exemplify the use of clean architecture using go language
 
-Fluxo 
-- handler recebe o dado e cria o dto
-- servico recebe o dto e cria entidade
-- repositorio recebe entidade e faz o que tem que fazer
-- repositorio busca os dados de algum lugar
-- devolve o dado bruto
-- servico converte para entidade
-- devolve pro controller uma lista de entidades
+The folder structure of this application was separated thinking about the clean architecture layers, so the application was separated into three main folders;
+- Domain
+- Infrastructure
+- Use cases
 
-Camadas
-
-![clean-archicture](https://miro.medium.com/max/1400/1*O4pMWCi5kZi20SNOR6V33Q.png)
+Each of these folders represents a layer of clean architecture;
+![clean-archicture](clean-architecture.png)
 
 ## 📌 Stack
 - Mysql (https://www.mysql.com/)
 - Go (https://go.dev/)
 - Fiber (https://docs.gofiber.io/)
 - GORM (https://gorm.io/)
+- Cobra (https://github.com/spf13/cobra)
 
 ## 🚀 Install
-Run docker
+Run docker containers
 ```sh
 docker-compose up -d
 ```
 
-To see the log and follow it
-
+If you want the API version. Run this command and access the url http://127.0.0.1:5001
 ```sh
-docker-compose logs -f app.devbooks  
+docker exec -it app.clean-architecture make run-api
 ```
 
+If you want the CLI version. Run this command and follow the terminal instructions
+```sh
+docker exec -it app.clean-architecture make run-cmd
+```
 
-## 📝 To Do 
-- Analisar a clean architecture 
-  - As entidades estão sendo criadas no handler, seria melhor criar elas no use cases
-  - Presenter
-- Colocar swagger
-- Fazer uma parte via cmd com a lib do cobra
-- Criar repository armazenando em outro local sem ser o banco para exemplificar o repository pattern
-- Criar a entitidade Book e vincular com o User
-- Adicionar teste unitario
+Its also possible to build application and run binary using make command like `make build-api` and `make build-cmd`
 
+# 💻 CLI Documentation
+If you are runing the CLi versioning of aplication, here you will can see some available command to use.
 
+Change `cmd-file` for your builded file or for command `docker exec -it app.clean-architecture make run-cmd`
 
-# API Documentation
+### User Create
+❯ `cmd-file` user create -n=teste -e=teste@gmail.com
+
+### User Update
+
+❯ `cmd-file` user update -n=teste -e=teste@gmail.com -i=12
+
+# 🌍 API Documentation
 
 ## User
 
@@ -87,3 +88,9 @@ curl --location --request PUT 'http://localhost:5001/users/1' \
   "name": "teste2"
 }'
 ```
+
+## 📝 To Do 
+- O env precisa ficar na memoria pra gente nao ficar preciso em ter esse arquivo sempre perto
+- Book entity
+- An example repository saving to memory
+- Write Tests
