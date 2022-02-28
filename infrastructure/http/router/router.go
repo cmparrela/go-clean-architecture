@@ -1,7 +1,7 @@
 package router
 
 import (
-	"github.com/cmparrela/go-clean-architecture/infrastructure/api/handler"
+	"github.com/cmparrela/go-clean-architecture/infrastructure/http/handler"
 	"github.com/cmparrela/go-clean-architecture/infrastructure/repositories/persistence"
 	"github.com/cmparrela/go-clean-architecture/usecase/user"
 

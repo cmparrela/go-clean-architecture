@@ -1,27 +1,27 @@
 version: '3.4'
 
 services:
-  app.devbooks:
-    container_name: app.devbooks
+  app.clean-architecture:
+    container_name: app.clean-architecture
     build: .
     volumes:
       - .:/app
     ports:
       - "5001:5001"
 
-  mysql.devbooks:
-    container_name: mysql.devbooks
+  mysql.clean-architecture:
+    container_name: mysql.clean-architecture
     image: mysql:5.7
     volumes:
-      - devbooks.mysql:/var/lib/mysql
+      - clean-architecture-mysql:/var/lib/mysql
     ports:
       - "3306:3306"
     environment:
-      - MYSQL_DATABASE=devbooks
+      - MYSQL_DATABASE=clean-architecture
       - MYSQL_ROOT_PASSWORD=root
 
 volumes:
-  devbooks.mysql:
+  clean-architecture-mysql:
 
 networks:
   bubble:
