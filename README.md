@@ -90,7 +90,6 @@ curl --location --request PUT 'http://localhost:5001/users/1' \
 ```
 
 ## 📝 To Do 
-- O env precisa ficar na memoria pra gente nao ficar preciso em ter esse arquivo sempre perto
 - Book entity
-- An example repository saving to memory
+- Repository saving to memory
 - Write Tests
