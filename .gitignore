@@ -2,3 +2,5 @@
 .env
 tmp
 bin
+.idea
+cover.out

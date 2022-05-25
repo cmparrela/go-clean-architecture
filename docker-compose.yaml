@@ -1,27 +1,27 @@
 version: '3.4'
 
 services:
-  app.clean-architecture:
-    container_name: app.clean-architecture
+  builder.clean-arch:
+    container_name: builder.clean-arch
     build: .
     volumes:
       - .:/app
     ports:
       - "5001:5001"
 
-  mysql.clean-architecture:
-    container_name: mysql.clean-architecture
+  mysql.clean-arch:
+    container_name: mysql.clean-arch
     image: mysql:5.7
     volumes:
-      - clean-architecture-mysql:/var/lib/mysql
+      - clean-arch-mysql:/var/lib/mysql
     ports:
       - "3306:3306"
     environment:
-      - MYSQL_DATABASE=clean-architecture
+      - MYSQL_DATABASE=clean-arch
       - MYSQL_ROOT_PASSWORD=root
 
 volumes:
-  clean-architecture-mysql:
+  clean-arch-mysql:
 
 networks:
   bubble:

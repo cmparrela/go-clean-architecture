@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	env.SetupEnvFile()
-	database := database.SetupDatabase()
+	envConfig := env.SetupEnvFile()
+	database := database.SetupDatabase(envConfig)
 	http.SetupHttpServer(database)
 }

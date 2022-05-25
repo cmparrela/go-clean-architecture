@@ -10,25 +10,28 @@ import (
 	"gorm.io/gorm"
 )
 
-func SetupDatabase() *gorm.DB {
-	dsn := getDataSourceName()
+func SetupDatabase(env *env.Config) *gorm.DB {
+	dsn := getDataSourceName(env)
 	database, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
 		panic("failed to connect database")
 	}
 
-	database.AutoMigrate(&entity.User{})
+	err = database.AutoMigrate(&entity.User{})
+	if err != nil {
+		panic("failed to auto migrate)")
+	}
 
 	return database
 }
 
-func getDataSourceName() string {
+func getDataSourceName(env *env.Config) string {
 	return fmt.Sprintf(
 		"%s:%s@tcp(%s:%s)/%s?parseTime=true",
-		env.GetEnv("MYSQL_USER"),
-		env.GetEnv("MYSQL_PASSWORD"),
-		env.GetEnv("MYSQL_HOST"),
-		env.GetEnv("MYSQL_PORT"),
-		env.GetEnv("MYSQL_DATABASE"),
+		env.DatabaseUser,
+		env.DatabasePassword,
+		env.DatabaseHost,
+		env.DatabasePort,
+		env.DatabaseName,
 	)
 }
