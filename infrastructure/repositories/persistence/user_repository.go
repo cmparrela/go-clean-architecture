@@ -2,38 +2,39 @@ package persistence
 
 import (
 	"github.com/cmparrela/go-clean-architecture/domain/entity"
+	"github.com/cmparrela/go-clean-architecture/domain/repository"
 	"gorm.io/gorm"
 )
 
-type UserRepository struct {
-	DB *gorm.DB
+type userRepository struct {
+	database *gorm.DB
 }
 
-func NewUserRepository(database *gorm.DB) *UserRepository {
-	return &UserRepository{database}
+func NewUserRepository(database *gorm.DB) repository.UserRepository {
+	return &userRepository{database}
 }
 
-func (repository *UserRepository) List() ([]entity.User, error) {
+func (r *userRepository) List() ([]entity.User, error) {
 	users := []entity.User{}
-	err := repository.DB.Find(&users).Error
+	err := r.database.Find(&users).Error
 	return users, err
 }
 
-func (repository *UserRepository) Find(id uint) (entity.User, error) {
+func (r *userRepository) Find(id uint) (entity.User, error) {
 	user := entity.User{}
-	err := repository.DB.First(&user, id).Error
+	err := r.database.First(&user, id).Error
 	return user, err
 }
 
-func (repository *UserRepository) Create(user *entity.User) error {
-	return repository.DB.Create(user).Error
+func (r *userRepository) Create(user *entity.User) error {
+	return r.database.Create(user).Error
 }
 
-func (repository *UserRepository) Update(user *entity.User) error {
+func (r *userRepository) Update(user *entity.User) error {
 
-	return repository.DB.Save(user).Error
+	return r.database.Save(user).Error
 }
 
-func (repository *UserRepository) Delete(user *entity.User) error {
-	return repository.DB.Delete(user).Error
+func (r *userRepository) Delete(user *entity.User) error {
+	return r.database.Delete(user).Error
 }

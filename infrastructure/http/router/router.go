@@ -2,18 +2,16 @@ package router
 
 import (
 	"github.com/cmparrela/go-clean-architecture/infrastructure/http/handler"
-	"github.com/cmparrela/go-clean-architecture/infrastructure/repositories/persistence"
-	"github.com/cmparrela/go-clean-architecture/usecase/user"
-
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/monitor"
-	"gorm.io/gorm"
 )
 
-func SetupRoutes(app *fiber.App, database *gorm.DB) {
+func SetupRoutes(userHandler handler.UserHandler, app fiber.Router) {
 	app.Get("/", monitor.New())
 
-	userRepository := persistence.NewUserRepository(database)
-	userService := user.NewUserService(userRepository)
-	handler.NewUserHandler(app, userService)
+	app.Get("/users", userHandler.List)
+	app.Get("/users/:id", userHandler.Find)
+	app.Put("/users/:id", userHandler.Update)
+	app.Post("/users", userHandler.Create)
+	app.Delete("/users/:id", userHandler.Delete)
 }

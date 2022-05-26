@@ -8,8 +8,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
-func NewCreateUserCmd(userService *user.UserService) *cobra.Command {
-	userDto := user.UserInputDto{}
+func NewCreateUserCmd(userService user.Service) *cobra.Command {
+	userDto := user.InputDto{}
 
 	createCmd := &cobra.Command{
 		Use:   "create",

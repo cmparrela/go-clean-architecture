@@ -1,6 +1,6 @@
 package user
 
-type UserInputDto struct {
+type InputDto struct {
 	Name  string `json:"name" `
 	Email string `json:"email"`
 }

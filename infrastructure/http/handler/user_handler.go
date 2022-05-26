@@ -9,88 +9,91 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-type UserHandler struct {
-	Service user.UserServiceInterface
+type UserHandler interface {
+	List(ctx *fiber.Ctx) error
+	Find(ctx *fiber.Ctx) error
+	Create(ctx *fiber.Ctx) error
+	Update(ctx *fiber.Ctx) error
+	Delete(ctx *fiber.Ctx) error
 }
 
-func NewUserHandler(app *fiber.App, userService user.UserServiceInterface) *UserHandler {
-	handler := &UserHandler{userService}
-	app.Get("/users", handler.List)
-	app.Get("/users/:id", handler.Find)
-	app.Put("/users/:id", handler.Update)
-	app.Post("/users", handler.Create)
-	app.Delete("/users/:id", handler.Delete)
+type userHandler struct {
+	service user.Service
+}
+
+func NewUserHandler(service user.Service) UserHandler {
+	handler := &userHandler{service}
 	return handler
 }
 
-func (handler *UserHandler) List(context *fiber.Ctx) error {
-	users, err := handler.Service.List()
+func (h *userHandler) List(ctx *fiber.Ctx) error {
+	users, err := h.service.List()
 	if err != nil {
-		return context.Status(fiber.StatusInternalServerError).JSON(PayloadError{err.Error()})
+		return err
 	}
-	return context.Status(fiber.StatusOK).JSON(users)
+	return ctx.Status(fiber.StatusOK).JSON(users)
 }
 
-func (handler *UserHandler) Find(context *fiber.Ctx) error {
-	id, err := getIdParam(context)
+func (h *userHandler) Find(ctx *fiber.Ctx) error {
+	id, err := getIdParam(ctx)
 	if err != nil {
-		return context.Status(fiber.StatusBadRequest).JSON(PayloadError{err.Error()})
-	}
-
-	user, err := handler.Service.Find(id)
-	if err != nil {
-		return context.Status(fiber.StatusInternalServerError).JSON(PayloadError{err.Error()})
-	}
-	return context.Status(fiber.StatusOK).JSON(user)
-}
-
-func (handler *UserHandler) Create(context *fiber.Ctx) error {
-	userDto := new(user.UserInputDto)
-	if err := context.BodyParser(userDto); err != nil {
 		return err
 	}
 
-	user, err := handler.Service.Create(userDto)
+	user, err := h.service.Find(id)
 	if err != nil {
-		return context.Status(fiber.StatusInternalServerError).JSON(PayloadError{err.Error()})
+		return err
 	}
-	return context.Status(fiber.StatusCreated).JSON(user)
+	return ctx.Status(fiber.StatusOK).JSON(user)
 }
 
-func (handler *UserHandler) Update(context *fiber.Ctx) error {
-	userDto := new(user.UserInputDto)
-	if err := context.BodyParser(userDto); err != nil {
+func (h *userHandler) Create(ctx *fiber.Ctx) error {
+	userDto := new(user.InputDto)
+	if err := ctx.BodyParser(userDto); err != nil {
 		return err
 	}
 
-	id, err := getIdParam(context)
+	user, err := h.service.Create(userDto)
 	if err != nil {
-		return context.Status(fiber.StatusBadRequest).JSON(PayloadError{err.Error()})
+		return err
+	}
+	return ctx.Status(fiber.StatusCreated).JSON(user)
+}
+
+func (h *userHandler) Update(ctx *fiber.Ctx) error {
+	userDto := new(user.InputDto)
+	if err := ctx.BodyParser(userDto); err != nil {
+		return err
 	}
 
-	result, err := handler.Service.Update(id, userDto)
+	id, err := getIdParam(ctx)
 	if err != nil {
-		return context.Status(fiber.StatusInternalServerError).JSON(PayloadError{err.Error()})
+		return err
 	}
-	return context.Status(fiber.StatusOK).JSON(result)
+
+	result, err := h.service.Update(id, userDto)
+	if err != nil {
+		return err
+	}
+	return ctx.Status(fiber.StatusOK).JSON(result)
 
 }
 
-func (handler *UserHandler) Delete(context *fiber.Ctx) error {
-	id, err := getIdParam(context)
+func (h *userHandler) Delete(ctx *fiber.Ctx) error {
+	id, err := getIdParam(ctx)
 	if err != nil {
-		return context.Status(fiber.StatusBadRequest).JSON(PayloadError{err.Error()})
+		return err
 	}
 
-	if err := handler.Service.Delete(id); err != nil {
-		return context.Status(fiber.StatusInternalServerError).JSON(PayloadError{err.Error()})
+	if err := h.service.Delete(id); err != nil {
+		return err
 	}
-	return context.SendStatus(fiber.StatusNoContent)
+	return ctx.SendStatus(fiber.StatusNoContent)
 
 }
 
-func getIdParam(context *fiber.Ctx) (uint, error) {
-	id, err := strconv.ParseUint(context.Params("id"), 0, 8)
+func getIdParam(ctx *fiber.Ctx) (uint, error) {
+	id, err := strconv.ParseUint(ctx.Params("id"), 0, 8)
 	if err != nil {
 		return 0, errors.New("invalid id number")
 	}

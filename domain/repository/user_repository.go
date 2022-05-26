@@ -2,7 +2,7 @@ package repository
 
 import "github.com/cmparrela/go-clean-architecture/domain/entity"
 
-type UserRepositoryInterface interface {
+type UserRepository interface {
 	List() ([]entity.User, error)
 	Find(id uint) (entity.User, error)
 	Create(user *entity.User) error

@@ -2,16 +2,16 @@ package database
 
 import (
 	"fmt"
+	"github.com/cmparrela/go-clean-architecture/infrastructure/config"
 
 	"github.com/cmparrela/go-clean-architecture/domain/entity"
-	"github.com/cmparrela/go-clean-architecture/infrastructure/adapters/env"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
 
-func SetupDatabase(env *env.Config) *gorm.DB {
-	dsn := getDataSourceName(env)
+func SetupDatabase(config *config.Config) *gorm.DB {
+	dsn := getDataSourceName(config)
 	database, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
 		panic("failed to connect database")
@@ -25,13 +25,13 @@ func SetupDatabase(env *env.Config) *gorm.DB {
 	return database
 }
 
-func getDataSourceName(env *env.Config) string {
+func getDataSourceName(config *config.Config) string {
 	return fmt.Sprintf(
 		"%s:%s@tcp(%s:%s)/%s?parseTime=true",
-		env.DatabaseUser,
-		env.DatabasePassword,
-		env.DatabaseHost,
-		env.DatabasePort,
-		env.DatabaseName,
+		config.DatabaseUser,
+		config.DatabasePassword,
+		config.DatabaseHost,
+		config.DatabasePort,
+		config.DatabaseName,
 	)
 }

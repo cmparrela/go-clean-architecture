@@ -8,9 +8,9 @@ import (
 	"github.com/spf13/cobra"
 )
 
-func NewUpdateUserCmd(userService *user.UserService) *cobra.Command {
+func NewUpdateUserCmd(userService user.Service) *cobra.Command {
 	var id uint
-	userDto := user.UserInputDto{}
+	userDto := user.InputDto{}
 
 	updateCmd := &cobra.Command{
 		Use:   "update",

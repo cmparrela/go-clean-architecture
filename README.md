@@ -32,9 +32,19 @@ If you want the CLI version. Run this command and follow the terminal instructio
 docker exec -it app.clean-architecture make run-cmd
 ```
 
-Its also possible to build application and run binary using make command like `make build-api` and `make build-cmd`
+## 🧑‍💻 Development
+For local development you can use `make dev` command, this will update your api server whenever there is modification
 
-# 💻 CLI Documentation
+You can use MAKE on your own computer or inside a container running this command
+```sh
+make dev
+```
+```sh
+docker exec -it app.clean-architecture make dev
+```
+
+
+## 💻 CLI Documentation
 If you are runing the CLi versioning of aplication, here you will can see some available command to use.
 
 Change `cmd-file` for your builded file or for command `docker exec -it app.clean-architecture make run-cmd`
@@ -46,7 +56,7 @@ Change `cmd-file` for your builded file or for command `docker exec -it app.clea
 
 ❯ `cmd-file` user update -n=teste -e=teste@gmail.com -i=12
 
-# 🌍 API Documentation
+## 🌍 API Documentation
 
 ## User
 
