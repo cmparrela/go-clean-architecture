@@ -3,6 +3,7 @@ module github.com/cmparrela/go-clean-architecture
 go 1.17
 
 require (
+	github.com/confluentinc/confluent-kafka-go v1.9.1
 	github.com/go-playground/validator/v10 v10.10.0
 	github.com/gofiber/fiber/v2 v2.35.0
 	github.com/gofiber/swagger v0.0.1
@@ -28,7 +29,7 @@ require (
 	github.com/go-playground/universal-translator v0.18.0 // indirect
 	github.com/go-sql-driver/mysql v1.6.0 // indirect
 	github.com/go-stack/stack v1.8.0 // indirect
-	github.com/golang/snappy v0.0.3 // indirect
+	github.com/golang/snappy v0.0.4 // indirect
 	github.com/inconshreveable/mousetrap v1.0.0 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.4 // indirect
