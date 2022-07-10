@@ -22,8 +22,7 @@ type userHandler struct {
 }
 
 func NewUserHandler(service user.Service) UserHandler {
-	handler := &userHandler{service}
-	return handler
+	return &userHandler{service}
 }
 
 func (h *userHandler) List(ctx *fiber.Ctx) error {
@@ -48,7 +47,7 @@ func (h *userHandler) Find(ctx *fiber.Ctx) error {
 }
 
 func (h *userHandler) Create(ctx *fiber.Ctx) error {
-	userDto := new(user.InputDto)
+	userDto := new(user.CreateDto)
 	if err := ctx.BodyParser(userDto); err != nil {
 		return err
 	}
@@ -61,7 +60,7 @@ func (h *userHandler) Create(ctx *fiber.Ctx) error {
 }
 
 func (h *userHandler) Update(ctx *fiber.Ctx) error {
-	userDto := new(user.InputDto)
+	userDto := new(user.CreateDto)
 	if err := ctx.BodyParser(userDto); err != nil {
 		return err
 	}

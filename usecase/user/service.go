@@ -1,32 +1,40 @@
 package user
 
 import (
-	"github.com/cmparrela/go-clean-architecture/domain/adapter"
-	"github.com/cmparrela/go-clean-architecture/domain/entity"
-	"github.com/cmparrela/go-clean-architecture/domain/repository"
+	"github.com/cmparrela/go-clean-architecture/domain"
+	"github.com/cmparrela/go-clean-architecture/infrastructure/database/repository"
+	"github.com/cmparrela/go-clean-architecture/infrastructure/validator"
 )
+
+type Service interface {
+	List() ([]domain.User, error)
+	Find(id uint) (domain.User, error)
+	Create(input *CreateDto) (*domain.User, error)
+	Update(id uint, input *CreateDto) (*domain.User, error)
+	Delete(id uint) error
+}
 
 type service struct {
 	repository repository.UserRepository
-	validator  adapter.Validator
+	validator  validator.Validator
 }
 
-func NewUserService(repository repository.UserRepository, validator adapter.Validator) Service {
+func NewUserService(repository repository.UserRepository, validator validator.Validator) Service {
 	return &service{repository, validator}
 }
 
-func (s *service) List() ([]entity.User, error) {
+func (s *service) List() ([]domain.User, error) {
 	users, err := s.repository.List()
 	return users, err
 }
 
-func (s *service) Find(id uint) (entity.User, error) {
+func (s *service) Find(id uint) (domain.User, error) {
 	user, err := s.repository.Find(id)
 	return user, err
 }
 
-func (s *service) Create(input *InputDto) (*entity.User, error) {
-	user := entity.User{
+func (s *service) Create(input *CreateDto) (*domain.User, error) {
+	user := domain.User{
 		Name:  input.Name,
 		Email: input.Email,
 	}
@@ -39,17 +47,17 @@ func (s *service) Create(input *InputDto) (*entity.User, error) {
 	return &user, err
 }
 
-func (s *service) Update(id uint, input *InputDto) (*entity.User, error) {
+func (s *service) Update(id uint, input *CreateDto) (*domain.User, error) {
 	user, err := s.repository.Find(id)
 	if err != nil {
-		return &entity.User{}, err
+		return nil, err
 	}
 
 	user.Name = input.Name
 	user.Email = input.Email
 
 	if err := s.repository.Update(&user); err != nil {
-		return &entity.User{}, err
+		return nil, err
 	}
 	return &user, err
 }

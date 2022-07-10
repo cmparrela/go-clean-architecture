@@ -1,11 +1,11 @@
 package http
 
 import (
-	"github.com/cmparrela/go-clean-architecture/infrastructure/adapter"
 	"github.com/cmparrela/go-clean-architecture/infrastructure/customerror"
+	"github.com/cmparrela/go-clean-architecture/infrastructure/database/repository"
 	"github.com/cmparrela/go-clean-architecture/infrastructure/http/handler"
 	"github.com/cmparrela/go-clean-architecture/infrastructure/http/router"
-	"github.com/cmparrela/go-clean-architecture/infrastructure/repositories/persistence"
+	"github.com/cmparrela/go-clean-architecture/infrastructure/validator"
 	"github.com/cmparrela/go-clean-architecture/usecase/user"
 	pvalidator "github.com/go-playground/validator/v10"
 	"log"
@@ -19,8 +19,8 @@ func SetupHttpServer(database *gorm.DB) {
 		ErrorHandler: customerror.ErrorHandler,
 	})
 
-	validator := adapter.NewValidator(pvalidator.New())
-	userRepository := persistence.NewUserRepository(database)
+	validator := validator.NewValidator(pvalidator.New())
+	userRepository := repository.NewUserRepository(database)
 	userService := user.NewUserService(userRepository, validator)
 	userHandler := handler.NewUserHandler(userService)
 

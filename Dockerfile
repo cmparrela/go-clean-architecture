@@ -1,4 +1,4 @@
-FROM golang:alpine
+FROM golang:1.17.3-alpine3.14
 RUN apk add -U --no-cache make gcc g++
 WORKDIR /app
 COPY . .

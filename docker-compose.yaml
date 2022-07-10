@@ -17,7 +17,7 @@ services:
     ports:
       - "3306:3306"
     environment:
-      - MYSQL_DATABASE=clean-arch
+      - MYSQL_DATABASE=clean-architecture
       - MYSQL_ROOT_PASSWORD=root
 
 volumes:

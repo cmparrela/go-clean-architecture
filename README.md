@@ -24,12 +24,13 @@ docker-compose up -d
 
 If you want the API version. Run this command and access the url http://127.0.0.1:5001
 ```sh
-docker exec -it app.clean-architecture make run-api
+docker exec -it builder.clean-arch make run-api
+
 ```
 
 If you want the CLI version. Run this command and follow the terminal instructions
 ```sh
-docker exec -it app.clean-architecture make run-cmd
+docker exec -it builder.clean-arch make run-cmd
 ```
 
 ## 🧑‍💻 Development
@@ -40,14 +41,14 @@ You can use MAKE on your own computer or inside a container running this command
 make dev
 ```
 ```sh
-docker exec -it app.clean-architecture make dev
+docker exec -it builder.clean-arch make dev
 ```
 
 
 ## 💻 CLI Documentation
 If you are runing the CLi versioning of aplication, here you will can see some available command to use.
 
-Change `cmd-file` for your builded file or for command `docker exec -it app.clean-architecture make run-cmd`
+Change `cmd-file` for your builded file or for command `docker exec -it builder.clean-arch make run-cmd`
 
 ### User Create
 ❯ `cmd-file` user create -n=teste -e=teste@gmail.com

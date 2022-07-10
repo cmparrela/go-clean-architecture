@@ -9,7 +9,7 @@ import (
 )
 
 func NewCreateUserCmd(userService user.Service) *cobra.Command {
-	userDto := user.InputDto{}
+	userDto := user.CreateDto{}
 
 	createCmd := &cobra.Command{
 		Use:   "create",
