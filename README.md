@@ -58,7 +58,7 @@ Here is where you will put your  business logic, remember your business logic kn
 - Use only the capabilities of the standard library.
 - Make calls to the outer layer through the interface.
 
-## ⚙️ Installing
+## 💡️ Installing
 Run docker containers   
 ```sh
 docker-compose up -d
@@ -114,4 +114,5 @@ API Documentation was created with swagger and is available at `http://localhost
 
 ## 📝 To Do 
 - Repository using mongo
+- Kafka Example
 - Write Tests

@@ -9,7 +9,7 @@ import (
 	"gorm.io/gorm"
 )
 
-func SetupDatabase(config *config.Config) *gorm.DB {
+func InitMysql(config *config.Config) *gorm.DB {
 	dsn := getDataSourceName(config)
 	database, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {

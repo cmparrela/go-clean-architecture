@@ -8,6 +8,6 @@ import (
 
 func main() {
 	envConfig := config.SetupEnvFile()
-	db := database.SetupDatabase(envConfig)
+	db := database.InitMysql(envConfig)
 	cmd.Execute(db)
 }

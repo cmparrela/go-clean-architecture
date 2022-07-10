@@ -12,6 +12,7 @@ type Config struct {
 	DatabaseHost     string `envconfig:"DATABASE_HOST" default:"mysql.clean-architecture"`
 	DatabaseName     string `envconfig:"DATABASE_NAME" default:"clean-architecture"`
 	DatabasePort     string `envconfig:"DATABASE_PORT" default:"3306"`
+	MongoAddress     string `envconfig:"MONGO_ADDRESS" default:"mongodb://localhost:27017"`
 }
 
 func SetupEnvFile() *Config {

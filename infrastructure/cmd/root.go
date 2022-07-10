@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"github.com/cmparrela/go-clean-architecture/infrastructure/identifier"
 	"github.com/cmparrela/go-clean-architecture/infrastructure/repository"
 	"github.com/cmparrela/go-clean-architecture/infrastructure/validator"
 	pvalidator "github.com/go-playground/validator/v10"
@@ -13,9 +14,10 @@ import (
 
 func Execute(database *gorm.DB) {
 	// dependency
+	identifier := identifier.NewIdentifier()
 	validator := validator.NewValidator(pvalidator.New())
 	userRepository := repository.NewUserRepository(database)
-	userService := user.NewUserService(userRepository, validator)
+	userService := user.NewUserService(userRepository, validator, identifier)
 
 	// userCmd
 	userCmd := NewUserCmd()
