@@ -1,13 +1,17 @@
 package router
 
 import (
+	_ "github.com/cmparrela/go-clean-architecture/docs"
 	"github.com/cmparrela/go-clean-architecture/infrastructure/http/handler"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/monitor"
+	"github.com/gofiber/swagger"
 )
 
 func SetupRoutes(app fiber.Router, userHandler handler.UserHandler, bookHandler handler.BookHandler) {
 	app.Get("/", monitor.New())
+
+	app.Get("/docs/*", swagger.HandlerDefault)
 
 	app.Get("/users", userHandler.List)
 	app.Get("/users/:id", userHandler.Find)

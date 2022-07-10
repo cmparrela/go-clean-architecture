@@ -28,6 +28,7 @@ Examples of data persistence;
 - GORM (https://gorm.io/)
 - Cobra (https://github.com/spf13/cobra)
 - Validator (https://github.com/go-playground/validator/)
+- Swagger (https://github.com/swaggo/swag and https://github.com/gofiber/swagger)
 
 ## 📄 Description
 The folder structure of this application was separated thinking about the clean architecture layers, so the application was separated into three main folders, domain, infrastructure and usecase
@@ -84,6 +85,13 @@ make dev
 docker exec -it builder.clean-arch make dev
 ```
 
+## 📒 Refresh Swagger Documentation
+If you want to refresh swagger documentation just run command below
+
+```sh
+make generate-swag
+```
+
 
 ## 💻 CLI Documentation
 If you are runing the CLi versioning of aplication, here you will can see some available command to use.
@@ -101,49 +109,8 @@ cmd-file user create -n=teste -e=teste@gmail.com
 cmd-file user update -n=teste -e=teste@gmail.com -i=12
 ```
 
-
-## 🌍 API Documentation
-
-## User
-
-### 1. Create
-```sh
-curl --location --request POST 'http://localhost:5001/users/' \
---header 'Content-Type: application/json' \
---data-raw '{
-  "name": "teste"
-}'
-```
-
-### 2. Delete
-```sh
-curl --location --request PUT 'http://localhost:5001/users/1' \
---header 'Content-Type: application/json' \
---data-raw '{
-  "name": "teste2"
-}'
-```
-
-### 4. List
-```sh
-curl --location --request GET 'http://localhost:5001/users' \
---header 'Content-Type: application/json'
-```
-
-### 4. Find
-```sh
-curl --location --request GET 'http://localhost:5001/users/2' \
---header 'Content-Type: application/json'
-```
-
-### 5. Update
-```sh
-curl --location --request PUT 'http://localhost:5001/users/1' \
---header 'Content-Type: application/json' \
---data-raw '{
-  "name": "teste2"
-}'
-```
+## 🌐 API Documentation
+API Documentation was created with swagger and is available at `http://localhost:5001/docs`
 
 ## 📝 To Do 
 - Repository using mongo

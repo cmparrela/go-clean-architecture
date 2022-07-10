@@ -4,9 +4,11 @@ import (
 	"github.com/cmparrela/go-clean-architecture/infrastructure/config"
 	"github.com/cmparrela/go-clean-architecture/infrastructure/database"
 	"github.com/cmparrela/go-clean-architecture/infrastructure/http"
+	"github.com/cmparrela/go-clean-architecture/infrastructure/swagger"
 )
 
 func main() {
+	swagger.InitSwagger()
 	envConfig := config.SetupEnvFile()
 	db := database.SetupDatabase(envConfig)
 	http.SetupHttpServer(db)
