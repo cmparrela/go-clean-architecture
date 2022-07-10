@@ -4,6 +4,7 @@ import (
 	"github.com/cmparrela/go-clean-architecture/infrastructure/customerror"
 	"github.com/cmparrela/go-clean-architecture/infrastructure/http/handler"
 	"github.com/cmparrela/go-clean-architecture/infrastructure/http/router"
+	"github.com/cmparrela/go-clean-architecture/infrastructure/identifier"
 	"github.com/cmparrela/go-clean-architecture/infrastructure/repository"
 	"github.com/cmparrela/go-clean-architecture/infrastructure/validator"
 	"github.com/cmparrela/go-clean-architecture/usecase/book"
@@ -20,9 +21,10 @@ func SetupHttpServer(database *gorm.DB) {
 		ErrorHandler: customerror.ErrorHandler,
 	})
 
+	identifier := identifier.NewIdentifier()
 	validator := validator.NewValidator(pvalidator.New())
 	userRepository := repository.NewUserRepository(database)
-	userService := user.NewUserService(userRepository, validator)
+	userService := user.NewUserService(userRepository, validator, identifier)
 	userHandler := handler.NewUserHandler(userService)
 
 	bookRepository := repository.NewBookRepository()

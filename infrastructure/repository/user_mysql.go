@@ -7,7 +7,7 @@ import (
 
 type UserRepository interface {
 	List() ([]domain.User, error)
-	Find(id uint) (domain.User, error)
+	Find(id string) (domain.User, error)
 	Create(user *domain.User) error
 	Update(user *domain.User) error
 	Delete(user *domain.User) error
@@ -27,9 +27,9 @@ func (r *userRepository) List() ([]domain.User, error) {
 	return users, err
 }
 
-func (r *userRepository) Find(id uint) (domain.User, error) {
-	user := domain.User{}
-	err := r.database.First(&user, id).Error
+func (r *userRepository) Find(id string) (domain.User, error) {
+	user := domain.User{ID: id}
+	err := r.database.First(&user).Error
 	return user, err
 }
 

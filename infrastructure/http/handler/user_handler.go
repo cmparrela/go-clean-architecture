@@ -1,10 +1,7 @@
 package handler
 
 import (
-	"errors"
 	"github.com/cmparrela/go-clean-architecture/usecase/user"
-	"strconv"
-
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -33,12 +30,7 @@ func (h *userHandler) List(ctx *fiber.Ctx) error {
 }
 
 func (h *userHandler) Find(ctx *fiber.Ctx) error {
-	id, err := getIdParam(ctx)
-	if err != nil {
-		return err
-	}
-
-	user, err := h.service.Find(id)
+	user, err := h.service.Find(ctx.Params("id"))
 	if err != nil {
 		return err
 	}
@@ -64,12 +56,7 @@ func (h *userHandler) Update(ctx *fiber.Ctx) error {
 		return err
 	}
 
-	id, err := getIdParam(ctx)
-	if err != nil {
-		return err
-	}
-
-	result, err := h.service.Update(id, userDto)
+	result, err := h.service.Update(ctx.Params("id"), userDto)
 	if err != nil {
 		return err
 	}
@@ -78,22 +65,9 @@ func (h *userHandler) Update(ctx *fiber.Ctx) error {
 }
 
 func (h *userHandler) Delete(ctx *fiber.Ctx) error {
-	id, err := getIdParam(ctx)
-	if err != nil {
-		return err
-	}
-
-	if err := h.service.Delete(id); err != nil {
+	if err := h.service.Delete(ctx.Params("id")); err != nil {
 		return err
 	}
 	return ctx.SendStatus(fiber.StatusNoContent)
 
-}
-
-func getIdParam(ctx *fiber.Ctx) (uint, error) {
-	id, err := strconv.ParseUint(ctx.Params("id"), 0, 8)
-	if err != nil {
-		return 0, errors.New("invalid id number")
-	}
-	return uint(id), nil
 }
