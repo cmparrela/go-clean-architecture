@@ -2,7 +2,7 @@ package user
 
 import (
 	"github.com/cmparrela/go-clean-architecture/domain"
-	"github.com/cmparrela/go-clean-architecture/infrastructure/database/repository"
+	"github.com/cmparrela/go-clean-architecture/infrastructure/repository"
 	"github.com/cmparrela/go-clean-architecture/infrastructure/validator"
 )
 
@@ -10,7 +10,7 @@ type Service interface {
 	List() ([]domain.User, error)
 	Find(id uint) (domain.User, error)
 	Create(input *CreateDto) (*domain.User, error)
-	Update(id uint, input *CreateDto) (*domain.User, error)
+	Update(id uint, input *UpdateDto) (*domain.User, error)
 	Delete(id uint) error
 }
 
@@ -24,13 +24,11 @@ func NewUserService(repository repository.UserRepository, validator validator.Va
 }
 
 func (s *service) List() ([]domain.User, error) {
-	users, err := s.repository.List()
-	return users, err
+	return s.repository.List()
 }
 
 func (s *service) Find(id uint) (domain.User, error) {
-	user, err := s.repository.Find(id)
-	return user, err
+	return s.repository.Find(id)
 }
 
 func (s *service) Create(input *CreateDto) (*domain.User, error) {
@@ -47,7 +45,7 @@ func (s *service) Create(input *CreateDto) (*domain.User, error) {
 	return &user, err
 }
 
-func (s *service) Update(id uint, input *CreateDto) (*domain.User, error) {
+func (s *service) Update(id uint, input *UpdateDto) (*domain.User, error) {
 	user, err := s.repository.Find(id)
 	if err != nil {
 		return nil, err

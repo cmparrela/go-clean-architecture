@@ -10,7 +10,7 @@ import (
 
 func NewUpdateUserCmd(userService user.Service) *cobra.Command {
 	var id uint
-	userDto := user.CreateDto{}
+	userDto := user.UpdateDto{}
 
 	updateCmd := &cobra.Command{
 		Use:   "update",

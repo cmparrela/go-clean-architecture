@@ -2,9 +2,8 @@ package handler
 
 import (
 	"errors"
-	"strconv"
-
 	"github.com/cmparrela/go-clean-architecture/usecase/user"
+	"strconv"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -60,7 +59,7 @@ func (h *userHandler) Create(ctx *fiber.Ctx) error {
 }
 
 func (h *userHandler) Update(ctx *fiber.Ctx) error {
-	userDto := new(user.CreateDto)
+	userDto := new(user.UpdateDto)
 	if err := ctx.BodyParser(userDto); err != nil {
 		return err
 	}

@@ -6,7 +6,7 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/monitor"
 )
 
-func SetupRoutes(userHandler handler.UserHandler, app fiber.Router) {
+func SetupRoutes(app fiber.Router, userHandler handler.UserHandler, bookHandler handler.BookHandler) {
 	app.Get("/", monitor.New())
 
 	app.Get("/users", userHandler.List)
@@ -14,4 +14,10 @@ func SetupRoutes(userHandler handler.UserHandler, app fiber.Router) {
 	app.Put("/users/:id", userHandler.Update)
 	app.Post("/users", userHandler.Create)
 	app.Delete("/users/:id", userHandler.Delete)
+
+	app.Get("/books", bookHandler.List)
+	app.Get("/books/:id", bookHandler.Find)
+	app.Put("/books/:id", bookHandler.Update)
+	app.Post("/books", bookHandler.Create)
+	app.Delete("/books/:id", bookHandler.Delete)
 }

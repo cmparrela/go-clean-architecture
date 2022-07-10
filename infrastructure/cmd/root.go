@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/cmparrela/go-clean-architecture/infrastructure/database/repository"
+	"github.com/cmparrela/go-clean-architecture/infrastructure/repository"
 	"github.com/cmparrela/go-clean-architecture/infrastructure/validator"
 	pvalidator "github.com/go-playground/validator/v10"
 	"os"
