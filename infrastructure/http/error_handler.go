@@ -1,21 +1,19 @@
-package customerror
+package http
 
 import (
 	"errors"
+	"github.com/cmparrela/go-clean-architecture/infrastructure/customerror"
+	"net/http"
+
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
 )
 
-var (
-	ErrUnprocessableEntity = fiber.ErrUnprocessableEntity
-	ErrNotFound            = fiber.ErrNotFound
-)
-
 func ErrorHandler(ctx *fiber.Ctx, err error) error {
-	code := fiber.StatusInternalServerError
+	code := http.StatusInternalServerError
 	payload := &PayloadError{Message: err.Error()}
 
-	if e, ok := err.(*fiber.Error); ok {
+	if e, ok := err.(*customerror.Error); ok {
 		code = e.Code
 	}
 
@@ -26,7 +24,7 @@ func ErrorHandler(ctx *fiber.Ctx, err error) error {
 			errors[i] = fieldErr.Error()
 		}
 
-		code = fiber.StatusUnprocessableEntity
+		code = http.StatusUnprocessableEntity
 		payload.Message = "Validation error in the following fields"
 		payload.Errors = errors
 

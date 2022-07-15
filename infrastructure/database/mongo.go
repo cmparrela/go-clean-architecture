@@ -11,9 +11,6 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/readpref"
 )
 
-var NotFound = "Document not found"
-var AlreadyExists = "Document already exists"
-
 func InitMongo(address string, databaseName string) *mongo.Database {
 	connection, err := Open(address)
 	if err != nil {

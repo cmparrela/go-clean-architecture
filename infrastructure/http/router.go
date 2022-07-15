@@ -1,4 +1,4 @@
-package router
+package http
 
 import (
 	_ "github.com/cmparrela/go-clean-architecture/docs"

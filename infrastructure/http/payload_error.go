@@ -1,4 +1,4 @@
-package customerror
+package http
 
 type PayloadError struct {
 	Message string   `json:"message"`
